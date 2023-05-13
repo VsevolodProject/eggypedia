@@ -48,48 +48,6 @@
 }
     </style>
 
-    <script src=
-
-"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-
-    </script>
-
-  
-
-    <script>
-
-        /* Add "https://api.ipify.org?format=json" statement
-
-           this will communicate with the ipify servers in
-
-           order to retrieve the IP address $.getJSON will
-
-           load JSON-encoded data from the server using a
-
-           GET HTTP request */
-
-        $.getJSON("https://api.ipify.org?format=json",
-
-            function(data) {
-
-                // Setting text of element P with id gfg
-
-                $("#gfg").html(data.ip);
-                
-                // Checking if IP matches
-                if(data.ip == "85.249.22.16") {
-                    $("#panel").show();
-                }
-                if(data.ip == "185.61.252.26") {
-                    $("#panel").show();
-                }
-                if(data.ip == "188.162.65.254") {
-                    $("#panel").show();
-                }
-            }
-        );
-
-    </script>
 
 </head>
 
@@ -99,9 +57,7 @@
 
     <center>
 
- <p id="gfg"></p>
-        
-        <div id="panel">
+
             <div class="topnav">
                 <a class="active" href="#home">Домашняя</a>
                 <a href="#news">Новости</a>
@@ -110,7 +66,7 @@
               </div>
             <h3>ДОБРО ПОЖАЛОВАТЬ НА ЯЙЦЕПЕДИЮ!</h3>
             <p>ЯЙЦЕПЕДИЯ ЭТО САЙТ ВСЕВОЛОДА И ВСЕВОЛОДА МЛАДШЕГО</p>
-        </div>
+
 
     </center>
 
