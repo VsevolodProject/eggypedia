@@ -29,16 +29,8 @@
    creatureImage.setAttribute("src", creatures[selectedCreature]);
 
    var roulette = document.getElementById("roulette");
-   roulette.innerHTML = " ";
+   roulette.innerHTML = selectedCreature;
    roulette.appendChild(result);
-   var hull = "Корабль";
-   var petName = "Бублик";
-   var petImage = document.createElement("img");
-   petImage.setAttribute("src", "bubble.png");
-   var petInfo = document.createElement("p");
-   petInfo.innerHTML = "Ваш питомец " + petName + " готов к новым приключениям на борту " + hull + "!";
-   roulette.appendChild(petInfo);
-   roulette.appendChild(petImage);
    roulette.appendChild(creatureImage);
   }
  </script>
