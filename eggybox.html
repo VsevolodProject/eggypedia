@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="icon" href="https://vsevolodproject.github.io/eggypedia/icon.ico" type="image/x-icon">
+ <title>Eggybox / Яйцепедия</title>
+ <style>
+  #roulette {
+   position: relative;
+   width: 400px;
+   height: 400px;
+   margin: 0 auto;
+   background-color: #fff;
+   border-radius: 50%;
+   box-shadow: 0 0 10px rgba(0,0,0,.5);
+   transition: transform 6s ease-in-out;
+  }
+  .egg {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 80px;
+   height: 80px;
+   object-fit: cover;
+  }
+  #spinBtn {
+   display: block;
+   margin: 20px auto;
+   padding: 10px;
+   font-size: 1.2em;
+   background-color: #ddd;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+  }
+  #result {
+   margin-top: 20px;
+   font-size: 1.2em;
+   font-weight: bold;
+   text-align: center;
+  }
+ </style>
+</head>
+
+<body>
+
+ <div id="roulette">
+  <img class="egg" src="https://pixabay.com/images/id-4262812/" alt="Яйцо 1" style="top: 20%; left: 10%;">
+  <img class="egg" src="https://pixabay.com/images/id-4262815/" alt="Яйцо 2" style="top: 5%; left: 40%;">
+  <img class="egg" src="https://pixabay.com/images/id-4262818/" alt="Яйцо 3" style="top: 5%; left: 70%;">
+  <img class="egg" src="https://pixabay.com/images/id-4262819/" alt="Яйцо 4" style="top: 35%; left: 80%;">
+  <img class="egg" src="https://pixabay.com/images/id-4262820/" alt="Яйцо 5" style="top: 70%; left: 70%;">
+  <img class="egg" src="https://pixabay.com/images/id-4262822/" alt="Яйцо 6" style="top: 80%; left: 40%;">
+  <img class="egg" src="https://pixabay.com/images/id-4262824/" alt="Яйцо 7" style="top: 70%; left: 10%;">
+  <img class="egg" src="https://pixabay.com/images/id-4262825/" alt="Яйцо 8" style="top: 35%; left: 20%;">
+ </div>
+ <button id="spinBtn">Крутить</button>
+ <div id="result"></div>
+ <script>
+  var eggs = document.querySelectorAll("#roulette img.egg");
+  var resultDiv = document.getElementById("result");
+
+  var creatures = [
+   {name: "Ведьма", egg: 1},
+   {name: "Дракон", egg: 2},
+   {name: "Единорог", egg: 3},
+   {name: "Гоблин", egg: 4},
+   {name: "Медведь", egg: 5},
+   {name: "Олень", egg: 6},
+   {name: "Химера", egg: 7},
+   {name: "Крылатый конь", egg: 8},
+  ];
+
+  var spinning = false;
+  var degrees = 0;
+
+  document.getElementById("spinBtn").addEventListener("click", function() {
+   if (spinning) return;
+   spinning = true;
+
+   var randomCreatureIndex = Math.floor(Math.random() * creatures.length) + 1;
+   eggs[0].alt = "Яйцо " + randomCreatureIndex;
+   var creature = creatures.find(item => item.egg == randomCreatureIndex);
+
+   degrees += 1800 + Math.floor(Math.random() * 1800);
+   roulette.style.transform = "rotate(" + degrees + "deg)";
+
+   setTimeout(function() {
+    spinning = false;
+    resultDiv.innerHTML = "Вы получили " + creature.name;
+   }, 7000);
+  });
+ </script>
+</body>
+</html>
