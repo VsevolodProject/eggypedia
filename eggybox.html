@@ -21,7 +21,7 @@
    var eggs = document.getElementsByTagName("img");
    var selected = Math.floor(Math.random() * eggs.length);
    var result = document.createElement("p");
-   result.innerHTML = "Вы выбрали " + eggs[selected].getAttribute("src") + "!";
+   result.innerHTML = "Вы выбрали " + eggs[selected].src + "!";
 
    var creatures = ["dragon.jpg", "unicorn.jpg", "mermaid.jpg", "phoenix.jpg", "griffin.jpg"];
    var selectedCreature = Math.floor(Math.random() * creatures.length);
@@ -29,7 +29,7 @@
    creatureImage.setAttribute("src", creatures[selectedCreature]);
 
    var roulette = document.getElementById("roulette");
-   roulette.innerHTML = selectedCreature;
+   roulette.innerHTML = "";
    roulette.appendChild(result);
    roulette.appendChild(creatureImage);
   }
