@@ -1,227 +1,152 @@
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
- <meta charset="UTF-8">
  <title>Рулетка с яйцами</title>
+ <meta charset="UTF-8">
  <style>
   .container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-top: 50px;
+  }
+
+  .egg {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: yellow;
+   border-radius: 50%;
+   height: 150px;
+   width: 150px;
+   margin-bottom: 20px;
+   font-size: 30px;
+   font-weight: bold;
+   color: #fff;
+   text-shadow: 2px 2px #000;
+  }
+
+  button {
+   width: 150px;
+   height: 50px;
+   background-color: #0099cc;
+   border: 0;
+   border-radius: 5px;
+   color: #fff;
+   font-weight: bold;
+   font-size: 20px;
+   cursor: pointer;
+  }
+
+  .result {
+   margin-top: 20px;
+   font-size: 24px;
+   font-weight: bold;
+  }
+
+  .creature-list {
+   margin-top: 50px;
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
    align-items: center;
-   margin-top: 50px;
   }
-  .egg {
-   width: 100px;
-   height: 100px;
-   margin: 10px;
-   border: 2px solid black;
-   border-radius: 50%;
-   background-color: whitesmoke;
-   position: relative;
+
+  .creature {
    display: flex;
-   justify-content: center;
    align-items: center;
+   margin: 10px;
+   font-size: 20px;
+  }
+
+  .checked {
+   margin-left: 10px;
+   color: #00cc00;
    font-size: 30px;
    font-weight: bold;
-   cursor: pointer;
-  }
-  .hidden {
-   display: none;
-  }
-  .creature {
-   width: 200px;
-   height: 200px;
-   background-repeat: no-repeat;
-   background-position: center;
-   background-size: contain;
-   margin-top: 50px;
-   display: none;
-  }
-  .checkmark {
-   padding: 5px;
-   color: green;
-   font-size: 20px;
-   display: none;
   }
  </style>
 </head>
 <body>
-
  <div class="container">
-  <div class="egg egg1">1</div>
-  <div class="egg egg2">2</div>
-  <div class="egg egg3">3</div>
-  <div class="egg egg4">4</div>
-  <div class="egg egg5">5</div>
-  <div class="egg egg6">6</div>
-  <div class="egg egg7">7</div>
-  <div class="egg egg8">8</div>
-  <div class="egg egg9">9</div>
-  <div class="egg egg10">10</div>
-  <button id="spin">Крутить рулетку</button>
+  <div class="egg">Яйцо</div>
+  <button id="spinBtn">Крутить рулетку</button>
+  <div class="result"></div>
+  <div class="creature-list">
+   <div class="creature">
+    <div>Медведь</div>
+    <div class="checked">&#10004;</div>
+   </div>
+   <div class="creature">
+    <div>Волк</div>
+    <div class="checked">&#10004;</div>
+   </div>
+   <div class="creature">
+    <div>Лиса</div>
+    <div class="checked">&#10004;</div>
+   </div>
+   <div class="creature">
+    <div>Олень</div>
+    <div class="checked">&#10004;</div>
+   </div>
+  </div>
  </div>
 
- <div class="creature" id="creature1"></div>
- <div class="creature" id="creature2"></div>
- <div class="creature" id="creature3"></div>
- <div class="creature" id="creature4"></div>
- <div class="creature" id="creature5"></div>
- <div class="creature" id="creature6"></div>
- <div class="creature" id="creature7"></div>
- <div class="creature" id="creature8"></div>
- <div class="creature" id="creature9"></div>
- <div class="creature" id="creature10"></div>
-
- <div class="checkmark" id="check1">&#10004;</div>
- <div class="checkmark" id="check2">&#10004;</div>
- <div class="checkmark" id="check3">&#10004;</div>
- <div class="checkmark" id="check4">&#10004;</div>
- <div class="checkmark" id="check5">&#10004;</div>
- <div class="checkmark" id="check6">&#10004;</div>
- <div class="checkmark" id="check7">&#10004;</div>
- <div class="checkmark" id="check8">&#10004;</div>
- <div class="checkmark" id="check9">&#10004;</div>
- <div class="checkmark" id="check10">&#10004;</div>
-
  <script>
-  // массив существ
-  const creatures = [
-   {
-    id: 1,
-    name: 'Существо 1',
-    image: 'https://picsum.photos/id/1015/400',
-    checked: false
-   },
-   {
-    id: 2,
-    name: 'Существо 2',
-    image: 'https://picsum.photos/id/1020/400',
-    checked: false
-   },
-   {
-    id: 3,
-    name: 'Существо 3',
-    image: 'https://picsum.photos/id/1024/400',
-    checked: false
-   },
-   {
-    id: 4,
-    name: 'Существо 4',
-    image: 'https://picsum.photos/id/1027/400',
-    checked: false
-   },
-   {
-    id: 5,
-    name: 'Существо 5',
-    image: 'https://picsum.photos/id/1031/400',
-    checked: false
-   },
-   {
-    id: 6,
-    name: 'Существо 6',
-    image: 'https://picsum.photos/id/1034/400',
-    checked: false
-   },
-   {
-    id: 7,
-    name: 'Существо 7',
-    image: 'https://picsum.photos/id/1039/400',
-    checked: false
-   },
-   {
-    id: 8,
-    name: 'Существо 8',
-    image: 'https://picsum.photos/id/1041/400',
-    checked: false
-   },
-   {
-    id: 9,
-    name: 'Существо 9',
-    image: 'https://picsum.photos/id/1043/400',
-    checked: false
-   },
-   {
-    id: 10,
-    name: 'Существо 10',
-    image: 'https://picsum.photos/id/1045/400',
-    checked: false
-   }
-  ];
-
-  // функция для выбора рандомного яйца и существа
-  function spin() {
-   const eggs = document.querySelectorAll('.egg');
-   const creatureDivs = document.querySelectorAll('.creature');
-   const checkmarks = document.querySelectorAll('.checkmark');
-
-   // скрыть все существа и галочки
-   creatureDivs.forEach(div => {
-    div.style.display = 'none';
-   });
-   checkmarks.forEach(checkmark => {
-    checkmark.style.display = 'none';
-   });
-
-   // выбрать рандомное яйцо и существа
-   const randomIndex = Math.floor(Math.random()*creatures.length);
-   const randomCreature = creatures[randomIndex];
-
-   // показать рандомное существо
-   const creatureDiv = document
-
-
-.getElementById(`creature${randomCreature.id}`);
-   creatureDiv.style.backgroundImage = `url(${randomCreature.image})`;
-   creatureDiv.style.display = 'block';
-
-   // показать галочку рядом с выбранным существом
-   const checkmark = document.getElementById(`check${randomCreature.id}`);
-   checkmark.style.display = 'block';
-
-   // удалить выбранное существо из массива существ
-   creatures.splice(randomIndex, 1);
-  }
-
-  // функция для сохранения состояния галочек в localStorage
-  function saveCheckmarks() {
-   const checkedCreatures = creatures.filter(creature => creature.checked);
-   localStorage.setItem('checkedCreatures', JSON.stringify(checkedCreatures));
-  }
-
-  // функция для загрузки состояния галочек из localStorage
-  function loadCheckmarks() {
-   const checkedCreatures = JSON.parse(localStorage.getItem('checkedCreatures'));
-   if (checkedCreatures) {
-    checkedCreatures.forEach(checkedCreature => {
-     const checkmark = document.getElementById(`check${checkedCreature.id}`);
-     checkmark.style.display = 'block';
-
-     const creature = creatures.find(creature => creature.id === checkedCreature.id);
-     creature.checked = true;
-    });
+  // Получаем ссылки на элементы DOM
+  const egg = document.querySelector('.egg');
+  const spinBtn = document.getElementById('spinBtn');
+  const result = document.querySelector('.result');
+  const creatures = document.querySelectorAll('.creature');
+  // Получаем список галочек из localStorage или создаем пустой массив, если его еще нет
+  let checkedCreatures = JSON.parse(localStorage.getItem('checkedCreatures')) || [];
+  // Проходимся по списку существ и отмечаем, если они уже были выбраны
+  for (let i = 0; i < creatures.length; i++) {
+   if (checkedCreatures.includes(creatures[i].querySelector('div').textContent)) {
+    creatures[i].querySelector('.checked').style.display = 'inline';
    }
   }
 
-  // добавить обработчики событий на яйца и кнопку
-  const eggs = document.querySelectorAll('.egg');
-  eggs.forEach((egg, index) => {
-   egg.addEventListener('click', () => {
-    egg.classList.add('hidden');
-    const creatureDiv = document.getElementById(`creature${index+1}`);
-    creatureDiv.style.display = 'block';
-   });
+  // Обработчик клика по кнопке
+  spinBtn.addEventListener('click', function() {
+   // Отключаем кнопку, чтобы пользователь не мог повторно кликнуть на нее, пока рулетка крутится
+   spinBtn.disabled = true;
+   // Создаем массив из четырех яиц
+   const eggs = ['Яйцо 1', 'Яйцо 2', 'Яйцо 3', 'Яйцо 4'];
+   // Генерируем случайное число от 0 до 3, чтобы выбрать случайное яйцо
+   const randomIndex = Math.floor(Math.random() * eggs.length);
+   // Записываем выбранное яйцо в результат
+   result.textContent = `Выбрано: ${eggs[randomIndex]}`;
+   // Передаем выбранное существо в функцию, которая его покажет
+   showCreature(eggs[randomIndex]);
+   // Включаем кнопку обратно, чтобы пользователь мог вращать рулетку повторно
+   setTimeout(function() {
+    spinBtn.disabled = false;
+   }, 500);
   });
-  const spinButton = document.getElementById('spin');
-  spinButton.addEventListener('click', spin);
 
-  // загрузить состояние галочек из localStorage при загрузке страницы
-  loadCheckmarks();
-
-  // сохранить состояние галочек в localStorage при закрытии страницы или обновлении
-  window.addEventListener('unload', saveCheckmarks);
+  // Функция, которая отображает выбранное существо и отмечает его в списке
+  function showCreature(egg) {
+   // Список существ
+   const creatureList = ['Медведь', 'Волк', 'Лиса', 'Олень'];
+   // Генерируем случайное число от 0 до 3, чтобы выбрать случайное существо
+   const randomIndex = Math.floor(Math.random() * creatureList.length);
+   // Записываем выбранное существо в переменную
+   const chosenCreature = creatureList[randomIndex];
+   // Отображаем выбранное существо
+   result.textContent += ` -> ${chosenCreature}`;
+   // Отмечаем выбранное существо в списке и записываем его в localStorage
+   for (let i = 0; i < creatures.length; i++) {
+    if (creatures[i].querySelector('div').textContent === chosenCreature) {
+     creatures[i].querySelector('.checked').style.display = 'inline';
+     checkedCreatures.push(chosenCreature);
+     localStorage.setItem('checkedCreatures', JSON.strin
+gify(checkedCreatures));
+    }
+   }
+  }
  </script>
- 
 </body>
 </html>
