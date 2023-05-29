@@ -1,184 +1,227 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+ <meta charset="UTF-8">
  <title>Рулетка с яйцами</title>
- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
  <style>
-  #eggs {
+  .container {
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
    align-items: center;
-   width: 400px;
-   margin: 50px auto;
+   margin-top: 50px;
   }
-
   .egg {
    width: 100px;
-   height: 120px;
-   background-color: yellow;
-   border-radius: 50% 50% 50% 0%;
-   transform: rotate(-45deg);
-   margin: 10px;
-   box-shadow: 0px 5px 10px rgba(0,0,0,0.1), 0px 3px 0px rgba(255,255,255,0.3) inset, 0px -3px 0px rgba(0,0,0,0.2) inset;
-   transition: transform 1s ease-in-out;
-   position: relative;
-  }
-
-  .egg::before,
-  .egg::after {
-   content: "";
-   position: absolute;
-   background-color: yellow;
-  }
-
-  .egg::before {
-   width: 80px;
    height: 100px;
-   border-radius: 45%;
-   top: -4px;
-   left: 8px;
-   transform: rotate(45deg);
-  }
-
-  .egg::after {
-   width: 20px;
-   height: 20px;
+   margin: 10px;
+   border: 2px solid black;
    border-radius: 50%;
-   top: 30px;
-   right: 25px;
-   box-shadow: -31px 0px 0px rgba(0,0,0,0.1), -30px 0px 0px rgba(255,255,255,0.5);
-   transform: rotate(15deg);
-  }
-
-  .egg.active {
-   animation: spin 3s linear 1;
-  }
-
-  @keyframes spin {
-   0% {
-    transform: rotate(-45deg);
-   }
-   100% {
-    transform: rotate(315deg);
-   }
-  }
-
-  #creature {
+   background-color: whitesmoke;
+   position: relative;
    display: flex;
-   flex-wrap: wrap;
    justify-content: center;
    align-items: center;
-   width: 400px;
-   margin: 50px auto;
+   font-size: 30px;
+   font-weight: bold;
+   cursor: pointer;
   }
-
-  img {
-   width: 100px;
-   height: 100px;
-   margin: 10px;
+  .hidden {
+   display: none;
   }
-
+  .creature {
+   width: 200px;
+   height: 200px;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: contain;
+   margin-top: 50px;
+   display: none;
+  }
   .checkmark {
-   display: inline-block;
-   width: 22px;
-   height: 22px;
-   background-color: green;
-   border-radius: 50%;
-   position: relative;
-   top: 1px;
-   margin-right: 10px;
-  }
-
-  .checkmark::after {
-   content: "";
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%) rotate(45deg);
-   width: 8px;
-   height: 18px;
-   border: 3px solid white;
-   border-top: none;
-   border-right: none;
+   padding: 5px;
+   color: green;
+   font-size: 20px;
+   display: none;
   }
  </style>
 </head>
 <body>
- <div id="eggs">
-  <div class="egg" data-creature="creature1"></div>
-  <div class="egg" data-creature="creature2"></div>
-  <div class="egg" data-creature="creature3"></div>
-  <div class="egg" data-creature="creature4"></div>
-  <div class="egg" data-creature="creature5"></div>
-  <div class="egg" data-creature="creature6"></div>
-  <div class="egg" data-creature="creature7"></div>
-  <div class="egg" data-creature="creature8"></div>
-  <div class="egg" data-creature="creature9"></div>
-  <div class="egg" data-creature="creature10"></div>
-  <div class="egg" data-creature="creature11"></div>
-  <div class="egg" data-creature="creature12"></div>
+
+ <div class="container">
+  <div class="egg egg1">1</div>
+  <div class="egg egg2">2</div>
+  <div class="egg egg3">3</div>
+  <div class="egg egg4">4</div>
+  <div class="egg egg5">5</div>
+  <div class="egg egg6">6</div>
+  <div class="egg egg7">7</div>
+  <div class="egg egg8">8</div>
+  <div class="egg egg9">9</div>
+  <div class="egg egg10">10</div>
+  <button id="spin">Крутить рулетку</button>
  </div>
 
- <button id="spin">Крутить рулетку</button>
+ <div class="creature" id="creature1"></div>
+ <div class="creature" id="creature2"></div>
+ <div class="creature" id="creature3"></div>
+ <div class="creature" id="creature4"></div>
+ <div class="creature" id="creature5"></div>
+ <div class="creature" id="creature6"></div>
+ <div class="creature" id="creature7"></div>
+ <div class="creature" id="creature8"></div>
+ <div class="creature" id="creature9"></div>
+ <div class="creature" id="creature10"></div>
 
- <div id="creature">
-  <img src="creature1.jpg" data-creature="creature1">
-  <img src="creature2.jpg" data-creature="creature2">
-  <img src="creature3.jpg" data-creature="creature3">
-  <img src="creature4.jpg" data-creature="creature4">
-  <img src="creature5.jpg" data-creature="creature5">
-  <img src="creature6.jpg" data-creature="creature6">
-  <img src="creature7.jpg" data-creature="creature7">
-  <img src="creature8.jpg" data-creature="creature8">
-  <img src="creature9.jpg" data-creature="creature9">
-  <img src="creature10.jpg" data-creature="creature10">
-  <img src="creature11.jpg" data-creature="creature11">
-  <img src="creature12.jpg" data-creature="creature12">
- </div>
+ <div class="checkmark" id="check1">&#10004;</div>
+ <div class="checkmark" id="check2">&#10004;</div>
+ <div class="checkmark" id="check3">&#10004;</div>
+ <div class="checkmark" id="check4">&#10004;</div>
+ <div class="checkmark" id="check5">&#10004;</div>
+ <div class="checkmark" id="check6">&#10004;</div>
+ <div class="checkmark" id="check7">&#10004;</div>
+ <div class="checkmark" id="check8">&#10004;</div>
+ <div class="checkmark" id="check9">&#10004;</div>
+ <div class="checkmark" id="check10">&#10004;</div>
 
  <script>
-  $(document).ready(function() {
-   var checkedCreatures = JSON.parse(localStorage.getItem("checkedCreatures")) || {};
+  // массив существ
+  const creatures = [
+   {
+    id: 1,
+    name: 'Существо 1',
+    image: 'https://picsum.photos/id/1015/400',
+    checked: false
+   },
+   {
+    id: 2,
+    name: 'Существо 2',
+    image: 'https://picsum.photos/id/1020/400',
+    checked: false
+   },
+   {
+    id: 3,
+    name: 'Существо 3',
+    image: 'https://picsum.photos/id/1024/400',
+    checked: false
+   },
+   {
+    id: 4,
+    name: 'Существо 4',
+    image: 'https://picsum.photos/id/1027/400',
+    checked: false
+   },
+   {
+    id: 5,
+    name: 'Существо 5',
+    image: 'https://picsum.photos/id/1031/400',
+    checked: false
+   },
+   {
+    id: 6,
+    name: 'Существо 6',
+    image: 'https://picsum.photos/id/1034/400',
+    checked: false
+   },
+   {
+    id: 7,
+    name: 'Существо 7',
+    image: 'https://picsum.photos/id/1039/400',
+    checked: false
+   },
+   {
+    id: 8,
+    name: 'Существо 8',
+    image: 'https://picsum.photos/id/1041/400',
+    checked: false
+   },
+   {
+    id: 9,
+    name: 'Существо 9',
+    image: 'https://picsum.photos/id/1043/400',
+    checked: false
+   },
+   {
+    id: 10,
+    name: 'Существо 10',
+    image: 'https://picsum.photos/id/1045/400',
+    checked: false
+   }
+  ];
 
-   $(".egg").click(function() {
-    var creature = $(this).data("creature");
-    if (checkedCreatures[creature]) {
-     delete checkedCreatures[creature];
-    } else {
-     checkedCreatures[creature] = true;
-    }
-    localStorage.setItem("checkedCreatures", JSON.stringify(checkedCreatures));
-    updateCheckmarks();
+  // функция для выбора рандомного яйца и существа
+  function spin() {
+   const eggs = document.querySelectorAll('.egg');
+   const creatureDivs = document.querySelectorAll('.creature');
+   const checkmarks = document.querySelectorAll('.checkmark');
+
+   // скрыть все существа и галочки
+   creatureDivs.forEach(div => {
+    div.style.display = 'none';
+   });
+   checkmarks.forEach(checkmark => {
+    checkmark.style.display = 'none';
    });
 
-   updateCheckmarks();
+   // выбрать рандомное яйцо и существа
+   const randomIndex = Math.floor(Math.random()*creatures.length);
+   const randomCreature = creatures[randomIndex];
 
-   $("#spin").click(function() {
-    $("#eggs .egg").removeClass("active");
-    setTimeout(function() {
-     var randomIndex = Math.floor(Math.random() * 12);
-     var randomEgg = $("#eggs .egg").eq(randomIndex);
-     var randomCreature = randomEgg.data("creature");
-     randomEgg.addClass("active");
+   // показать рандомное существо
+   const creatureDiv = document
 
-Midjourney & ChatGPT | Бесплатно, [28.05.2023 20:21]
-$("#creature img").hide();
-     $("#creature img[data-creature='" + randomCreature + "']").show();
-    }, 100);
-   });
+Midjourney & ChatGPT | Бесплатно, [28.05.2023 20:30]
+.getElementById(`creature${randomCreature.id}`);
+   creatureDiv.style.backgroundImage = `url(${randomCreature.image})`;
+   creatureDiv.style.display = 'block';
 
-   function updateCheckmarks() {
-    $("#eggs .egg").each(function() {
-     if (checkedCreatures[$(this).data("creature")]) {
-      $(this).append("<div class='checkmark'></div>");
-     } else {
-      $(this).find(".checkmark").remove();
-     }
+   // показать галочку рядом с выбранным существом
+   const checkmark = document.getElementById(`check${randomCreature.id}`);
+   checkmark.style.display = 'block';
+
+   // удалить выбранное существо из массива существ
+   creatures.splice(randomIndex, 1);
+  }
+
+  // функция для сохранения состояния галочек в localStorage
+  function saveCheckmarks() {
+   const checkedCreatures = creatures.filter(creature => creature.checked);
+   localStorage.setItem('checkedCreatures', JSON.stringify(checkedCreatures));
+  }
+
+  // функция для загрузки состояния галочек из localStorage
+  function loadCheckmarks() {
+   const checkedCreatures = JSON.parse(localStorage.getItem('checkedCreatures'));
+   if (checkedCreatures) {
+    checkedCreatures.forEach(checkedCreature => {
+     const checkmark = document.getElementById(`check${checkedCreature.id}`);
+     checkmark.style.display = 'block';
+
+     const creature = creatures.find(creature => creature.id === checkedCreature.id);
+     creature.checked = true;
     });
    }
+  }
+
+  // добавить обработчики событий на яйца и кнопку
+  const eggs = document.querySelectorAll('.egg');
+  eggs.forEach((egg, index) => {
+   egg.addEventListener('click', () => {
+    egg.classList.add('hidden');
+    const creatureDiv = document.getElementById(`creature${index+1}`);
+    creatureDiv.style.display = 'block';
+   });
   });
+  const spinButton = document.getElementById('spin');
+  spinButton.addEventListener('click', spin);
+
+  // загрузить состояние галочек из localStorage при загрузке страницы
+  loadCheckmarks();
+
+  // сохранить состояние галочек в localStorage при закрытии страницы или обновлении
+  window.addEventListener('unload', saveCheckmarks);
  </script>
+ 
 </body>
 </html>
