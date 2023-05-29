@@ -147,6 +147,16 @@ gify(checkedCreatures));
     }
    }
   }
+// Функция, которая отображает выбранное существо и отмечает его в списке
+  function showCreature(egg) {
+   // Ищем существо с таким же названием, как выбранное яйцо
+   const creature = document.querySelector(`.creature div:nth-of-type(1):contains('${egg}')`);
+   // Показываем галочку рядом с выбранным существом
+   creature.parentElement.querySelector('.checked').style.display = 'inline';
+   // Добавляем выбранное существо в localStorage
+   checkedCreatures.push(creature.textContent);
+   localStorage.setItem('checkedCreatures', JSON.stringify(checkedCreatures));
+  }
  </script>
 </body>
 </html>
