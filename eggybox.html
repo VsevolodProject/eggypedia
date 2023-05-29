@@ -1,162 +1,165 @@
 
-
 <!DOCTYPE html>
 <html>
-<head>
- <title>Рулетка с яйцами</title>
- <meta charset="UTF-8">
- <style>
-  .container {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   margin-top: 50px;
-  }
+  <head>
+    <title>Рулетка с яйцами</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  </head>
+  <body>
+    <h1>Рулетка с яйцами</h1>
+    <button onclick="spin()">Крутить рулетку</button>
+    <div id="roulette">
+      <img src="egg1.jpg">
+      <img src="egg2.jpg">
+      <img src="egg3.jpg">
+      <img src="egg4.jpg">
+      <img src="egg5.jpg">
+      <img src="egg6.jpg">
+      <img src="egg7.jpg">
+      <img src="egg8.jpg">
+      <img src="egg9.jpg">
+      <img src="egg10.jpg">
+    </div>
+    <div id="display">
+      <h2>Выбрано яйцо:</h2>
+      <img id="result">
+      <h2>Получено существо:</h2>
+      <img id="creature">
+    </div>
+    <h2>Список всех существ:</h2>
+    <ul>
+      <li><img src="creature1.jpg"> <span id="creature1"></span></li>
+      <li><img src="creature2.jpg"> <span id="creature2"></span></li>
+      <li><img src="creature3.jpg"> <span id="creature3"></span></li>
+      <li><img src="creature4.jpg"> <span id="creature4"></span></li>
+      <li><img src="creature5.jpg"> <span id="creature5"></span></li>
+      <li><img src="creature6.jpg"> <span id="creature6"></span></li>
+      <li><img src="creature7.jpg"> <span id="creature7"></span></li>
+      <li><img src="creature8.jpg"> <span id="creature8"></span></li>
+      <li><img src="creature9.jpg"> <span id="creature9"></span></li>
+      <li><img src="creature10.jpg"> <span id="creature10"></span></li>
+      <li><img src="creature11.jpg"> <span id="creature11"></span></li>
+      <li><img src="creature12.jpg"> <span id="creature12"></span></li>
+      <li><img src="creature13.jpg"> <span id="creature13"></span></li>
+      <li><img src="creature14.jpg"> <span id="creature14"></span></li>
+      <li><img src="creature15.jpg"> <span id="creature15"></span></li>
+    </ul>
+    <script>
+      $(document).ready(function() {
+        // создаем массив существ и галочки для них
+        var creatures = [
+          { name: "creature1", img: "creature1.jpg", checked: false },
+          { name: "creature2", img: "creature2.jpg", checked: false },
+          { name: "creature3", img: "creature3.jpg", checked: false },
+          { name: "creature4", img: "creature4.jpg", checked: false },
+          { name: "creature5", img: "creature5.jpg", checked: false },
+          { name: "creature6", img: "creature6.jpg", checked: false },
+          { name: "creature7", img: "creature7.jpg", checked: false },
+          { name: "creature8", img: "creature8.jpg", checked: false },
+          { name: "creature9", img: "creature9.jpg", checked: false },
+          { name: "creature10", img: "creature10.jpg", checked: false },
+          { name: "creature11", img: "creature11.jpg", checked: false },
+          { name: "creature12", img: "creature12.jpg", checked: false },
+          { name: "creature13", img: "creature13.jpg", checked: false },
+          { name: "creature14", img: "creature14.jpg", checked: false },
+          { name: "creature15", img: "creature15.jpg", checked: false }
+        ];
 
-  .egg {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: yellow;
-   border-radius: 50%;
-   height: 150px;
-   width: 150px;
-   margin-bottom: 20px;
-   font-size: 30px;
-   font-weight: bold;
-   color: #fff;
-   text-shadow: 2px 2px #000;
-  }
+        // проверяем сохраненные галочки в localStorage
+        for (var i = 0; i < creatures.length; i++) {
+          var savedValue = localStorage.getItem(creatures[i].name);
+          if (savedValue !== null) {
+            creatures[i].checked = (savedValue === 'true');
+          }
+        }
 
-  button {
-   width: 150px;
-   height: 50px;
-   background-color: #0099cc;
-   border: 0;
-   border-radius: 5px;
-   color: #fff;
-   font-weight: bold;
-   font-size: 20px;
-   cursor: pointer;
-  }
+        // выводим галочки
+        for (var i = 0; i < creatures.length; i++) {
+          $('#' + creatures[i].name).text(creatures[i].checked ? '\u2713' : '');
+        }
 
-  .result {
-   margin-top: 20px;
-   font-size: 24px;
-   font-weight: bold;
-  }
+        function spin() {
+          // выбираем рандомное яйцо
+          var eggs = $('#roulette img');
+          var eggIndex = Math.floor(Math.random() * eggs.length);
+          var egg = eggs.eq(eggIndex);
 
-  .creature-list {
-   margin-top: 50px;
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: center;
-   align-items: center;
-  }
+          // показываем выбранное яйцо
+          $('#result').attr('src', egg.attr('src'));
 
-  .creature {
-   display: flex;
-   align-items: center;
-   margin: 10px;
-   font-size: 20px;
-  }
+          // показываем рандомное существо и отмечаем его галочкой
+          var checked = false;
+          var creatureIndex;
+          while (!checked) {
+            creatureIndex = Math.floor(Math.random() * creatures.length);
+            checked = !creatures[creatureIndex].checked;
+          }
+          var creature = creatures[creatureIndex];
+          $('#' + creature.name).text('\u2713');
+          creature.checked = true;
+          localStorage.setItem(creature.name, 'true');
+          $('#creature').attr('src', creature.img);
+        }
 
-  .checked {
-   margin-left: 10px;
-   color: #00cc00;
-   font-size: 30px;
-   font-weight: bold;
-  }
- </style>
-</head>
-<body>
- <div class="container">
-  <div class="egg">Яйцо</div>
-  <button id="spinBtn">Крутить рулетку</button>
-  <div class="result"></div>
-  <div class="creature-list">
-   <div class="creature">
-    <div>Медведь</div>
-    <div class="checked">&#10004;</div>
-   </div>
-   <div class="creature">
-    <div>Волк</div>
-    <div class="checked">&#10004;</div>
-   </div>
-   <div class="creature">
-    <div>Лиса</div>
-    <div class="checked">&#10004;</div>
-   </div>
-   <div class="creature">
-    <div>Олень</div>
-    <div class="checked">&#10004;</div>
-   </div>
-  </div>
- </div>
-
- <script>
-  // Получаем ссылки на элементы DOM
-  const egg = document.querySelector('.egg');
-  const spinBtn = document.getElementById('spinBtn');
-  const result = document.querySelector('.result');
-  const creatures = document.querySelectorAll('.creature');
-  // Получаем список галочек из localStorage или создаем пустой массив, если его еще нет
-  let checkedCreatures = JSON.parse(localStorage.getItem('checkedCreatures')) || [];
-  // Проходимся по списку существ и отмечаем, если они уже были выбраны
-  for (let i = 0; i < creatures.length; i++) {
-   if (checkedCreatures.includes(creatures[i].querySelector('div').textContent)) {
-    creatures[i].querySelector('.checked').style.display = 'inline';
-   }
-  }
-
-  // Обработчик клика по кнопке
-  spinBtn.addEventListener('click', function() {
-   // Отключаем кнопку, чтобы пользователь не мог повторно кликнуть на нее, пока рулетка крутится
-   spinBtn.disabled = true;
-   // Создаем массив из четырех яиц
-   const eggs = ['Яйцо 1', 'Яйцо 2', 'Яйцо 3', 'Яйцо 4'];
-   // Генерируем случайное число от 0 до 3, чтобы выбрать случайное яйцо
-   const randomIndex = Math.floor(Math.random() * eggs.length);
-   // Записываем выбранное яйцо в результат
-   result.textContent = `Выбрано: ${eggs[randomIndex]}`;
-   // Передаем выбранное существо в функцию, которая его покажет
-   showCreature(eggs[randomIndex]);
-   // Включаем кнопку обратно, чтобы пользователь мог вращать рулетку повторно
-   setTimeout(function() {
-    spinBtn.disabled = false;
-   }, 500);
-  });
-
-  // Функция, которая отображает выбранное существо и отмечает его в списке
-  function showCreature(egg) {
-   // Список существ
-   const creatureList = ['Медведь', 'Волк', 'Лиса', 'Олень'];
-   // Генерируем случайное число от 0 до 3, чтобы выбрать случайное существо
-   const randomIndex = Math.floor(Math.random() * creatureList.length);
-   // Записываем выбранное существо в переменную
-   const chosenCreature = creatureList[randomIndex];
-   // Отображаем выбранное существо
-   result.textContent += ` -> ${chosenCreature}`;
-   // Отмечаем выбранное существо в списке и записываем его в localStorage
-   for (let i = 0; i < creatures.length; i++) {
-    if (creatures[i].querySelector('div').textContent === chosenCreature) {
-     creatures[i].querySelector('.checked').style.display = 'inline';
-     checkedCreatures.push(chosenCreature);
-     localStorage.setItem('checkedCreatures', JSON.strin
-gify(checkedCreatures));
-    }
-   }
-  }
-// Функция, которая отображает выбранное существо и отмечает его в списке
-  function showCreature(egg) {
-   // Ищем существо с таким же названием, как выбранное яйцо
-   const creature = document.querySelector(`.creature div:nth-of-type(1):contains('${egg}')`);
-   // Показываем галочку рядом с выбранным существом
-   creature.parentElement.querySelector('.checked').style.display = 'inline';
-   // Добавляем выбранное существо в localStorage
-   checkedCreatures.push(creature.textContent);
-   localStorage.setItem('checkedCreatures', JSON.stringify(checkedCreatures));
-  }
- </script>
-</body>
+        // сохраняем галочки в localStorage при изменении
+        $('ul li').click(function() {
+          var index = $(this).index();
+          var creature = creatures[index];
+          creature.checked = !creature.checked;
+          localStorage.setItem(creature.name, creature.checked);
+          $('#' + creature.name).text(creature.checked ? '\u2713' : '');
+        });
+      });
+    </script>
+    <style>
+      #roulette {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #roulette img {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        border: 2px solid gray;
+        border-radius: 50%;
+      }
+      #result {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 20px;
+        border: 2px solid gray;
+        border-radius: 50%;
+      }
+      #creature {
+        width: 200px;
+        height: 200px;
+        border: 2px solid gray;
+        border-radius: 50%;
+      }
+      ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0;
+      }
+      li {
+        text-align: center;
+        margin: 10px;
+      }
+      li img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 5px;
+        border: 2px solid gray;
+        border-radius: 50%;
+      }
+      span {
+        display: block;
+        font-size: 24px;
+      }
+    </style>
+  </body>
 </html>
