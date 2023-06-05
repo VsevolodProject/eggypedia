@@ -1,79 +1,95 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="ru">
 
-<head>
+  <head>
 
- <title>Яйцепедия / Яичные Предсказания</title>
+    <meta charset="utf-8">
 
- <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-</head>
+    <title>Заголовок страницы</title>
 
-<body>
+    <link rel="stylesheet" href="./styles/style.css">
 
- <h1>Яичные предсказания</h1>
+  
 
-<style></style>
+    <meta property="og:title" content="Заголовок страницы в OG">
 
- <p>Думаешь, что сегодня будет интересный день? Попробуй угадать, достань одно из яиц и прочитай предсказание!</p>
+    <meta property="og:description" content="Описание страницы в OG">
 
- <div>
+    <meta property="og:image" content="https://example.com/image.jpg">
 
-  <img src="https://i.imgur.com/T4XaJwB.jpg" alt="яйца" width="300">
+    <meta property="og:url" content="https://example.com/">
 
- </div>
+  </head>
 
- <div>
+  <body>
 
-  <button onclick="predict()">Достать яйцо</button>
+    <header>
 
- </div>
+      <h1>Это мой сайт</h1>
 
- <div>
+      <p>Он хороший</p>
 
-  <p id="prediction"></p>
+      <nav>
 
- </div>
+        <ul>
 
- <script>
+          <li><a href="index.html">Эта страница</a></li>
 
-  const predictions = [
+          <li><a href="catalog.html">Другая страница</a></li>
 
-   "Сегодня удачный день для начала нового дела.",
+        </ul>
 
-   "Будь осторожен во всех делах сегодня.",
+      </nav>
 
-   "Тебе повезет в личной жизни.",
+    </header>
 
-   "Сегодня день, когда нужно действовать по плану.",
+    <main>
 
-   "Жди неожиданных событий, которые повлияют на твою жизнь.",
+      <article>
 
-   "Будь готов к непредвиденным ситуациям на работе.",
+        <section>
 
-   "Сегодня хороший день для творчества.",
+          <h2>Первая секция</h2>
 
-   "Не трать деньги на ненужные вещи сегодня.",
+          <p>Она обо мне</p>
 
-   "Береги свое здоровье в ближайшее время.",
+          <img src="images/image.png" alt="Человек и пароход">
 
-   "Ожидай приятное событие на этой неделе!"
+          <p>Но может быть и о семантике, я пока не решил.</p>
 
-   // добавь еще 990 предсказаний :)
+        </section>
 
-  ];
+        <section>
 
-  function predict() {
+          <h2>Вторая секция</h2>
 
-   const predictionIndex = Math.floor(Math.random() * predictions.length);
+          <p>Она тоже обо мне</p>
 
-   document.getElementById("prediction").innerHTML = predictions[predictionIndex];
+        </section>
 
-  }
+        <section>
 
- </script>
+          <h2>И третья</h2>
 
-</body>
+          <p>Вы уже должны были начать догадываться.</p>
+
+        </section>
+
+      </article>
+
+    </main>
+
+    <footer>
+
+      <p>Сюда бы я вписал информацию об авторе и ссылки на другие сайты</p>
+
+    </footer>
+
+    <!-- сюда можно подключить jquery <script src="scripts/app.js" defer></script> -->
+
+  </body>
 
 </html>
