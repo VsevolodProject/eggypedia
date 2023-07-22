@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Узбеки на устройстве</title>
+</head>
+<body>
+    <p id="deviceText">ВАШЕ УСТРОЙСТВО ОБНАРУЖИЛИ УЗБЕКИ</p>
+
+    <script>
+        // JavaScript код для определения типа устройства
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        var deviceTextElement = document.getElementById('deviceText');
+
+        // Функция для клонирования и добавления текста под прошлой надписью
+        function cloneText() {
+            var newParagraph = document.createElement('p');
+            if (isMobile) {
+                newParagraph.innerText = 'ВАШ ТЕЛЕФОН ВЗЛОМАЛИ УЗБЕКИ';
+            } else {
+                newParagraph.innerText = 'ВАШ КОМП ВЗЛОМАЛИ УЗБЕКИ';
+            }
+            document.body.appendChild(newParagraph);
+        }
+
+        // Вызываем функцию cloneText каждую секунду (1000 миллисекунд)
+        setInterval(cloneText, 1000);
+    </script>
+</body>
+</html>
