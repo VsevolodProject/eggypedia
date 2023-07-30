@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Лох-детектор с MobileNetV2</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/hub@1.0.0/dist/hub.min.js"></script>
+</head>
+<body>
+    <h1>Лох-детектор с MobileNetV2</h1>
+    <p>Выберите изображение, чтобы определить, насколько это лох.</p>
+    <input type="file" id="imageInput" accept="image/*">
+    <button onclick="detectLox()">Определить лоха</button>
+    <div id="result"></div>
+
+    <script>
+        let modelPromise;
+
+        async function loadModel() {
+            // Загружаем предобученную модель MobileNetV2 с TensorFlow Hub
+            const url = "https://tfhub.dev/google/tfjs-model/mobilenet_v2_130_224/classification/3";
+            modelPromise = tf.loadGraphModel(url);
+            await modelPromise;
+            // Предварительный warm-up для ускорения первой инференции
+            const warmUpImg = tf.zeros([1, 224, 224, 3]);
+            modelPromise.then((model) => model.execute(warmUpImg));
+            warmUpImg.dispose();
+        }
+
+        function preprocessImage(image) {
+            // Остальной код остаётся без изменений...
+        }
+
+        async function detectLox() {
+            // Проверяем, что модель успешно загружена
+            if (!modelPromise) {
+                alert('Модель еще не загружена. Пожалуйста, дождитесь завершения загрузки.');
+                return;
+            }
+
+            const imageInput = document.getElementById('imageInput');
+            const selectedImage = imageInput.files[0];
+            if (!selectedImage) {
+                alert('Выберите изображение.');
+                return;
+            }
+
+            try {
+                const model = await modelPromise; // Получаем модель из обещания
+                const processedImage = await preprocessImage(selectedImage);
+                const predictions = await model.execute(processedImage);
+                const topPredictionClass = await getTopPrediction(predictions);
+                displayResult(topPredictionClass);
+
+                processedImage.dispose();
+            } catch (error) {
+                alert('Ошибка обработки изображения: ' + error.message);
+            }
+        }
+
+        // Остальной код остаётся без изменений...
+
+        // Загружаем модель после загрузки страницы
+        loadModel();
+    </script>
+</body>
+</html>
