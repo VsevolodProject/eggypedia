@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .question {
+      margin-bottom: 10px;
+    }
+
+    .answer {
+      margin-bottom: 5px;
+    }
+
+    .submit-btn {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Тест по OneConnect - кривой соцсети</h1>
+  <form id="quizForm">
+    <div class="question">
+      <p>1. Какое название у приложения?</p>
+      <div class="answer">
+        <input type="radio" name="q1" value="a" required> a) SocialConnect
+      </div>
+      <div class="answer">
+        <input type="radio" name="q1" value="b"> b) OneConnect
+      </div>
+      <div class="answer">
+        <input type="radio" name="q1" value="c"> c) ConnectBook
+      </div>
+    </div>
+
+    <div class="question">
+      <p>2. Какую функцию OneConnect предлагает пользователям?</p>
+      <div class="answer">
+        <input type="radio" name="q2" value="a" required> a) Обмен сообщениями
+      </div>
+      <div class="answer">
+        <input type="radio" name="q2" value="b"> b) Просмотр видео
+      </div>
+      <div class="answer">
+        <input type="radio" name="q2" value="c"> c) Заказ еды
+      </div>
+    </div>
+
+    <div class="question">
+      <p>3. Что означает сокращение "UI" в контексте OneConnect?</p>
+      <div class="answer">
+        <input type="radio" name="q3" value="a" required> a) Unified Interface
+      </div>
+      <div class="answer">
+        <input type="radio" name="q3" value="b"> b) User Interface
+      </div>
+      <div class="answer">
+        <input type="radio" name="q3" value="c"> c) User Interaction
+      </div>
+    </div>
+
+    <input class="submit-btn" type="submit" value="Проверить ответы">
+  </form>
+
+  <script>
+    document.getElementById('quizForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Отменяет отправку формы
+
+      var answers = {
+        q1: document.querySelector('input[name="q1"]:checked').value,
+        q2: document.querySelector('input[name="q2"]:checked').value,
+        q3: document.querySelector('input[name="q3"]:checked').value
+      };
+
+      var score = 0;
+      if (answers.q1 === 'b') {
+        score++;
+      }
+      if (answers.q2 === 'a') {
+        score++;
+      }
+      if (answers.q3 === 'b') {
+        score++;
+      }
+
+      alert('Вы набрали ' + score + ' из 3 баллов');
+      // Дополнительный код можно добавить здесь, например, чтобы сохранить результаты теста
+    });
+  </script>
+</body>
+</html>
